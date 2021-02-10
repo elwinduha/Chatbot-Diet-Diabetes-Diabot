@@ -214,17 +214,19 @@ router.post('/', express.json(), (req, res)=>{
       cal = fcal(berat,20)
       pesanHasilBMI(agent, nama, bmi, cal, desc);
       rekomendasiMakanan(agent, cal);
+      resetContext(agent);
+      pesanTerimakasih(agent);
     }else if(bmi < 30 && jawaban == 'ya'){
       desc = "Anda termasuk kedalam kategori Obesitas II Resiko Sangat Tinggi";
       pesanHasilBMI(agent, nama, bmi, 0, desc, false);
+      resetContext(agent);
+      pesanTerimakasih(agent);
     }else if(bmi < 30 && jawaban == 'tidak'){
       desc = "Anda termasuk kedalam kategori Obesitas II Resiko Tinggi";
       pesanHasilBMI(agent, nama, bmi, 0, desc, false);
-    }
-
-    resetContext(agent);
-    pesanTerimakasih(agent);
-    
+      resetContext(agent);
+      pesanTerimakasih(agent);
+    }    
   }
 
   function finishProgram(agent){
