@@ -119,8 +119,10 @@ router.post('/', express.json(), (req, res)=>{
     nama = ctx[3].parameters["nama"];
 
     if (jk == 'laki-laki'){
+
+      //JIKA JENIS KELAMIN LAKI-LAKI/PRIA
       if (bmi < 18.5){
-        desc = 'Berat Badan Anda Kurang';
+        desc = 'Berat Badan Anda Rendah';
 
         if (aktivitas == "rendah"){
           cal = fcal(berat,30);
@@ -157,7 +159,44 @@ router.post('/', express.json(), (req, res)=>{
       pesanTerimakasih(agent);
 
     }else{
-      agent.add("Perempuan Belum Ada hitungan nya");
+
+      // JIKA JENIS KELAMIN PEREMPUAN/WANITA
+      if (bmi < 18.5){
+        desc = 'Berat Badan Anda Rendah';
+
+        if (aktivitas == "rendah"){
+          cal = fcal(berat,25);
+        }else if (aktivitas == "sedang"){
+          cal = fcal(berat,30);
+        }else if (aktivitas == "tinggi"){
+          cal = fcal(berat,35)
+        }
+      }else if (bmi >= 18.5 || bmi < 23){
+        desc = 'Berat Badan Anda Normal';
+
+        if (aktivitas == "rendah"){
+          cal = fcal(berat,20);
+        }else if (aktivitas == "sedang"){
+          cal = fcal(berat,25);
+        }else if (aktivitas == "tinggi"){
+          cal = fcal(berat,30)
+        }
+      }else if (bmi >= 23 || bmi < 25){
+        desc = 'Anda termasuk kedalam kategori Obesitas I Resiko Tinggi';
+
+        if (aktivitas == "rendah"){
+          cal = fcal(berat,15);
+        }else if (aktivitas == "sedang"){
+          cal = fcal(berat,20);
+        }else if (aktivitas == "tinggi"){
+          cal = fcal(berat,25)
+        }
+      }
+
+      pesanHasilBMI(agent, nama, bmi, cal, desc);
+      rekomendasiMakanan(agent, cal); 
+      resetContext(agent);
+      pesanTerimakasih(agent);
     }
   }
 
