@@ -22,15 +22,7 @@
   },
   "description": "",
   "main": "app.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/elwinduha/Chatbot-Diet-Diabetes-Diabot.git"
-  },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/elwinduha/Chatbot-Diet-Diabetes-Diabot/issues"
-  },
-  "homepage": "https://github.com/elwinduha/Chatbot-Diet-Diabetes-Diabot#readme"
+  "license": "ISC"
 }
