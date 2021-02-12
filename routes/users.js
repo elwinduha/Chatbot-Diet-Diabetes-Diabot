@@ -9,13 +9,14 @@ var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb+srv://dia_bot:1234@cluster0.qxkx4.mongodb.net/chtbot_diabot?retryWrites=true&w=majority";
 
 MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-
-            var dbo = db.db("chtbot_diabot");
-            var query = { total: {$gte:1500 , $lt:1600} };
-      dbo.collection("dataMakanan").find(query).toArray(function(err, result) { 
-              if (err) throw err;
-              console.log(result[1].makan_pagi+result[1].total);
+  if (err) throw err;
+  var dbo = db.db("chtbot_diabot");
+  //var query = { total: {$gte:1500 , $lt:1600} };
+  
+  dbo.collection("dataMakanan").find().toArray(function(err, result) { 
+  if (err) throw err;
+  //console.log(result[1].makan_pagi+result[1].total);
+  //console.log(result);
 
 
   
@@ -87,9 +88,15 @@ router.post('/', express.json(), (req, res)=>{
   function rekomendasiMakanan(a, cal){
 
     if (cal >= 1500 && cal <1600) {
-      agent.add("1500 - 1599");
-
+      var i;
+      var agent_output;
+        for (i = 0; i < result.length; i++) {
+            if (result[i].total >= 1500 && result[i].total<1600) {
+              agent.add(result[i].makan_pagi+"\n kalori : "+result[i].total);
+            }
+        }
     }
+
     else{
       agent.add("rekom makanana");
       agent.add("bayu jon");
