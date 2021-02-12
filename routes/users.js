@@ -8,6 +8,12 @@ var MongoClient = require('mongodb').MongoClient;
 // replace the uri string with your connection string.
 var url = "mongodb+srv://dia_bot:1234@cluster0.qxkx4.mongodb.net/chtbot_diabot?retryWrites=true&w=majority";
 
+MongoClient.connect(url, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("chtbot_diabot");
+            dbo.collection("dataMakanan").findOne({}, function(err, result) {
+              if (err) throw err;
+
 
   
 
@@ -83,16 +89,8 @@ router.post('/', express.json(), (req, res)=>{
     }
     else{
       agent.add("rekom makanana");
-     
-          MongoClient.connect(url, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("chtbot_diabot");
-            dbo.collection("dataMakanan").findOne({}, function(err, result) {
-              if (err) throw err;
-              agent.add(result.makan_pagi);
-              db.close();
-            });
-          });
+      agent.add(result.makan_pagi);
+              
 
     }
     
@@ -286,7 +284,9 @@ router.post('/', express.json(), (req, res)=>{
 });
 
 // ini syntax penutup database,, 
-
+db.close();
+  });
+});
 
 //end databasecd C:cd
 
