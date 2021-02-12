@@ -10,10 +10,12 @@ var url = "mongodb+srv://dia_bot:1234@cluster0.qxkx4.mongodb.net/chtbot_diabot?r
 
 MongoClient.connect(url, function(err, db) {
             if (err) throw err;
+
             var dbo = db.db("chtbot_diabot");
-            dbo.collection("dataMakanan").findOne({}, function(err, result) {
+            var query = { total: {$gte:1500 , $lt:1600} };
+      dbo.collection("dataMakanan").find(query).toArray(function(err, result) { 
               if (err) throw err;
-              console.log(result.makan_pagi);
+              console.log(result[1].makan_pagi+result[1].total);
 
 
   
@@ -91,7 +93,7 @@ router.post('/', express.json(), (req, res)=>{
     else{
       agent.add("rekom makanana");
       agent.add("bayu jon");
-      agent.add(result.makan_pagi);
+      agent.add(result[1].makan_pagi+"\n kalori : "+result[1].total);
               
 
     }
