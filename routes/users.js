@@ -2,15 +2,7 @@ const express = require('express');
 var router = express.Router();
 const dfff = require('dialogflow-fulfillment');
 
-//database (mongodb)
-var MongoClient = require('mongodb').MongoClient;
 
-// replace the uri string with your connection string.
-var url = "mongodb+srv://dia_bot:1234@cluster0.qxkx4.mongodb.net/chtbot_diabot?retryWrites=true&w=majority";
-
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  var dbo = db.db("chtbot_diabot");
   
 
     
@@ -63,20 +55,31 @@ router.post('/', express.json(), (req, res)=>{
       a.add("Hai "+nama+", BMI Anda adalah "+bmi+"\n"+desc);
       a.add('Anda membutuhkan '+cal+' Kalori.');
       a.add('hay Berikut Rekomendasi Makanan sesuai dengan Kebutuhan Kalori Anda');
-      
-      var query = { total: {$gte:1500 , $lt:1600} };
+      //database (mongodb)
+var MongoClient = require('mongodb').MongoClient;
+
+// replace the uri string with your connection string.
+var url = "mongodb+srv://dia_bot:1234@cluster0.qxkx4.mongodb.net/chtbot_diabot?retryWrites=true&w=majority";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("chtbot_diabot");
+   var query = { total: {$gte:1500 , $lt:1600} };
       dbo.collection("dataMakanan").find(query).toArray(function(err, result) {
         if (err) throw err;
           var i;
           var hasil;
           
             //agent.add("PAGI (07.00) \n "+result[i].makan_pagi+"\n total : "+result[i].total);
-            a.add(result[1].makan_pagi);
+            a.add("bayuuu"+result[1].makan_pagi);
             
           
 
           db.close();
         });
+  });
+      
+     
 
     
     }else{
@@ -297,9 +300,6 @@ router.post('/', express.json(), (req, res)=>{
 
 });
 
-// ini syntax penutup database,, 
 
-});
-//end databasecd C:cd
 
 module.exports = router;
