@@ -93,7 +93,7 @@ router.post('/', express.json(), (req, res)=>{
             var dbo = db.db("chtbot_diabot");
             dbo.collection("dataMakanan").findOne({}, function(err, result) {
               if (err) throw err;
-              agent.add(result);
+              agent.add(result.makan_pagi);
               db.close();
             });
           });
