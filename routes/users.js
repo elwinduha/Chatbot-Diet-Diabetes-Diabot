@@ -81,10 +81,11 @@ router.post('/', express.json(), (req, res)=>{
         if (err) throw err;
           var i;
           var hasil;
-          for (i = 0; i < result.length; i++) {
-            agent.add("PAGI (07.00) \n "+result[i].makan_pagi+"\n total : "+result[i].total);
+          
+            //agent.add("PAGI (07.00) \n "+result[i].makan_pagi+"\n total : "+result[i].total);
+            agent.add(result[1].makan_pagi);
             
-          }
+          
 
           db.close();
         });
