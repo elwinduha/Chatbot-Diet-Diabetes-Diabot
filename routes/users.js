@@ -83,11 +83,7 @@ router.post('/', express.json(), (req, res)=>{
     }
     else{
       agent.add("rekom makanana");
-      var MongoClient = require('mongodb').MongoClient;
-
-          // replace the uri string with your connection string.
-          var url = "mongodb+srv://dia_bot:1234@cluster0.qxkx4.mongodb.net/chtbot_diabot?retryWrites=true&w=majority";
-
+     
           MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db("chtbot_diabot");
@@ -97,6 +93,7 @@ router.post('/', express.json(), (req, res)=>{
               db.close();
             });
           });
+
     }
     
 
