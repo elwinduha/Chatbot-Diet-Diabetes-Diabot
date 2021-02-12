@@ -63,6 +63,22 @@ router.post('/', express.json(), (req, res)=>{
       a.add("Hai "+nama+", BMI Anda adalah "+bmi+"\n"+desc);
       a.add('Anda membutuhkan '+cal+' Kalori.');
       a.add('Berikut Rekomendasi Makanan sesuai dengan Kebutuhan Kalori Anda');
+      if (cal >= 1500 && cal <1600) {
+      var query = { total: {$gte:1500 , $lt:1600} };
+      dbo.collection("dataMakanan").find(query).toArray(function(err, result) {
+        if (err) throw err;
+          var i;
+          var hasil;
+          
+            //agent.add("PAGI (07.00) \n "+result[i].makan_pagi+"\n total : "+result[i].total);
+            a.add(result[1].makan_pagi);
+            
+          
+
+          db.close();
+        });
+
+    }
     }else{
       a.add("Hai "+nama+", BMI Anda adalah "+bmi+"\n"+desc);
     }
