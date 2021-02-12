@@ -91,20 +91,12 @@ router.post('/', express.json(), (req, res)=>{
           MongoClient.connect(url, function(err, db) {
             if (err) throw err;
             var dbo = db.db("chtbot_diabot");
-             var query = { total: {$gte:1500 , $lt:1600} };
-                dbo.collection("dataMakanan").find(query).toArray(function(err, result) {
-                  if (err) throw err;
-                    var i;
-                    var hasil;
-                    
-                      //agent.add("PAGI (07.00) \n "+result[i].makan_pagi+"\n total : "+result[i].total);
-                      agent.add(result[1].makan_pagi);
-                      
-                    
-
-                    db.close();
-                  });
+            dbo.collection("dataMakanan").findOne({}, function(err, result) {
+              if (err) throw err;
+              agent.add(result);
+              db.close();
             });
+          });
     }
     
 
