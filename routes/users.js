@@ -62,7 +62,7 @@ router.post('/', express.json(), (req, res)=>{
     if(wc){
       a.add("Hai "+nama+", BMI Anda adalah "+bmi+"\n"+desc);
       a.add('Anda membutuhkan '+cal+' Kalori.');
-      a.add('Berikut Rekomendasi Makanan sesuai dengan Kebutuhan Kalori Anda');
+      a.add('hay Berikut Rekomendasi Makanan sesuai dengan Kebutuhan Kalori Anda');
       
       var query = { total: {$gte:1500 , $lt:1600} };
       dbo.collection("dataMakanan").find(query).toArray(function(err, result) {
