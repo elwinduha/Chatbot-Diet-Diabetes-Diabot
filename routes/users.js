@@ -64,14 +64,14 @@ var url = "mongodb+srv://dia_bot:1234@cluster0.qxkx4.mongodb.net/chtbot_diabot?r
 MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("chtbot_diabot");
-   var query = { total: {$gte:1500 , $lt:1600} };
-      dbo.collection("dataMakanan").find(query).toArray(function(err, result) {
+   //var query = { total: {$gte:1500 , $lt:1600} };
+      dbo.collection("dataMakanan").findOne({}, function(err, result) {
         if (err) throw err;
           var i;
           var hasil;
           
             //agent.add("PAGI (07.00) \n "+result[i].makan_pagi+"\n total : "+result[i].total);
-            a.add("bayuuu"+result[1].makan_pagi);
+            a.add("bayuuu"+result.makan_pagi);
             
           
 
