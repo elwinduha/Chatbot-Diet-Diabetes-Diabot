@@ -13,6 +13,7 @@ MongoClient.connect(url, function(err, db) {
             var dbo = db.db("chtbot_diabot");
             dbo.collection("dataMakanan").findOne({}, function(err, result) {
               if (err) throw err;
+              console.log(result.makan_pagi);
 
 
   
@@ -89,6 +90,7 @@ router.post('/', express.json(), (req, res)=>{
     }
     else{
       agent.add("rekom makanana");
+      agent.add("bayu jon");
       agent.add(result.makan_pagi);
               
 
