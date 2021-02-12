@@ -2,6 +2,24 @@ const express = require('express');
 var router = express.Router();
 const dfff = require('dialogflow-fulfillment');
 
+//database (mongodb)
+var MongoClient = require('mongodb').MongoClient;
+
+// replace the uri string with your connection string.
+var url = "mongodb+srv://dia_bot:1234@cluster0.qxkx4.mongodb.net/chtbot_diabot?retryWrites=true&w=majority";
+
+MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("chtbot_diabot");
+  
+
+    
+    
+
+// SYNTAX PENUTUP DATABASE CARI DENGAN CTRL+F [ penutup database ]
+
+
+
 /* GET users listing. */
 router.get('/', function(req, res,) {
   res.send("It's Online Now");
@@ -56,12 +74,25 @@ router.post('/', express.json(), (req, res)=>{
   }
 
   function rekomendasiMakanan(a, cal){
-    if (cal >= 750 && cal <=1000){
-      agent.add("Menu 1: \n PAGI (7:00) \n 1. Brokoli (1 cup(5 ons), Direbus, 50 kalori (10 kalori/ons)) \n 2. Ayam (3 ons , 130 Kalori)\n 3. Kentang (1 cup(5.5 ons), Direbus, 134 kalori \n SIANG (12:00) \n 1. Kubis (1 cup(8 ons), Direbus, 50 kalori \n 2. Semangka (200 gram, 60 kalori (10kalori/gram) ) \n 3. Roti (1 potong, 80 kalori) \n MALAM (19:00) \n 1. Tahu (1.5 ons, Digoreng, 115 kalori) \n 2. Telur Rebus (1 butir, 77 kalori) \n 3. Jeruk (114 gram, 54 kalori)");
+
+    if (cal >= 1500 && cal <1600) {
+      var query = { total: {$gte:1500 , $lt:1600} };
+      dbo.collection("dataMakanan").find(query).toArray(function(err, result) {
+        if (err) throw err;
+          var i;
+          var hasil;
+          for (i = 0; i < result.length; i++) {
+            agent.add("PAGI (07.00) \n "+result[i].makan_pagi+"\n total : "+result[i].total);
+            
+          }
+
+          db.close();
+        });
+
     }
-    else if (cal >=1600 && cal <=1700){
-      agent.add("Menu 1: \n PAGI (7:00) \n 1. Bayam (1 cup (5.3 ons), Direbus, 34 kalori (7 kalori/ons)) \n 2. Ayam (3 ons, 130 kalori) \n 3. Nasi Merah (200 gram, 220 kalori, (110 kalori/100 gram)) \n SELINGAN (10:00) \n 1. Apel Fuji (100 gram, 63 kalori) \n 2. Kentang Goreng(1 cup (3 ons), 267 kalori) \n SIANG (12:00) \n 1. Wortel (1 cup (5.4 ons), Direbus, 54 kalori (10 kalori/ons)) \n 2. Tempe (1 cup (3.5 ons), digoreng, 196 kalori (56 kalori/ons)) \n 3. Nasi Merah (200 gram, 220 kalori, (110 kalori/100 gram)) \n SELINGAN (15:00) \n 1. Tahu (1.5 ons, Digoreng, 115 kalori) \n 2. Jeruk (114 gram, 54 kalori) \n MALAM (19:00) \n 1. Brokoli (1 cup(5 ons), Direbus, 50 kalori (10 kalori/ons)) \n 2. Ikan kembung (80 gram, Digoreng, 87 kalori) \n 3. Nasi Merah (100 gram, 110 kalori, (110 kalori/100 gram)) ");
-    }
+    
+
+ 
   }
 
   function dataUser(agent){
@@ -248,5 +279,10 @@ router.post('/', express.json(), (req, res)=>{
 
 
 });
+
+// ini syntax penutup database,, 
+
+});
+//end databasecd C:cd
 
 module.exports = router;
