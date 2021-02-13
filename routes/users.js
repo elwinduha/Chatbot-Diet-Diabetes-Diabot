@@ -117,7 +117,7 @@ router.post('/', express.json(), (req, res)=>{
               );
             }//tutup if
 
-            else if (cal == result[i].total) {
+            else if (cal > result[i].total && cal <1600) {
               agent.add(
                 result[i].class+": \nPagi (07:00): \n"+result[i].makan_pagi.menu1+" , takaran (gram) : "+result[i].makan_pagi.gram_menu1+"\n"+
                 result[i].makan_pagi.menu2+" , takaran (gram) : "+result[i].makan_pagi.gram_menu2+"\n\nSelingan (10:00) \n"+
