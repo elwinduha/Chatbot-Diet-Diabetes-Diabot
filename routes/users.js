@@ -117,27 +117,7 @@ router.post('/', express.json(), (req, res)=>{
               );
             }//tutup if
 
-            else if (cal > result[i].total && cal <1600) {
-              agent.add(
-                result[i].class+": \nPagi (07:00): \n"+result[i].makan_pagi.menu1+" , takaran (gram) : "+result[i].makan_pagi.gram_menu1+"\n"+
-                result[i].makan_pagi.menu2+" , takaran (gram) : "+result[i].makan_pagi.gram_menu2+"\n\nSelingan (10:00) \n"+
-                result[i].selingan1.menu1+" , takaran (gram) : "+result[i].selingan1.gram_menu1+"\n"+ 
-                result[i].selingan1.menu2+" , takaran (gram) : "+result[i].selingan1.gram_menu2+"\n\nSiang (12:00) \n"+
-                result[i].makan_siang.menu1+" , takaran (gram) : "+result[i].makan_siang.gram_menu1+"\n"+
-                result[i].makan_siang.menu2+" , takaran (gram) : "+result[i].makan_siang.gram_menu2+"\n"+
-                result[i].makan_siang.menu3+" , takaran (gram) : "+result[i].makan_siang.gram_menu3+"\n"+
-                result[i].makan_siang.menu4+" , takaran (gram) : "+result[i].makan_siang.gram_menu4+"\n\nSelingan (15:00) \n"+
-                result[i].selingan2.menu1+" , takaran (gram) : "+result[i].selingan2.gram_menu1+"\n"+
-                result[i].selingan2.menu2+" , takaran (gram) : "+result[i].selingan2.gram_menu2+"\n\nMalam (19:00) \n"+
-                result[i].makan_malam.menu1+" , takaran (gram) : "+result[i].makan_malam.gram_menu1+"\n"+
-                result[i].makan_malam.menu2+" , takaran (gram) : "+result[i].makan_malam.gram_menu2+"\n"+
-                result[i].makan_malam.menu3+" , takaran (gram) : "+result[i].makan_malam.gram_menu3+"\n"+
-                result[i].makan_malam.menu4+" , takaran (gram) : "+result[i].makan_malam.gram_menu4+"\n\nSelingan (21:00) \n"+
-                result[i].selingan3.menu1+" , takaran (gram) : "+result[i].selingan3.gram_menu1+
-                "\nTotal kalori 22222: "+result[i].total
-            
-              );
-            }//tutup if
+          
             
             
 
