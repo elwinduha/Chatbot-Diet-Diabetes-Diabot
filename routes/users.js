@@ -117,7 +117,7 @@ router.post('/', express.json(), (req, res)=>{
               );
             }//tutup if
             else if(cal != result[i].total && cal <1600){
-            gram = (cal - result[i].total) / result[i].menu_tambahan.kalori_menu1;
+            gram = 500;
               agent.add(
                 result[i].class+": \nPagi (07:00): \n"+result[i].makan_pagi.menu1+" , takaran (gram) : "+result[i].makan_pagi.gram_menu1+"\n"+
                 result[i].makan_pagi.menu2+" , takaran (gram) : "+result[i].makan_pagi.gram_menu2+"\n\nSelingan (10:00) \n"+
