@@ -93,8 +93,12 @@ router.post('/', express.json(), (req, res)=>{
       var kalori_menu_tambahan;
       var selisih_kalori;
       
-
+      
         for (i = 0; i < result.length; i++) {
+            kalori_menu_tambahan = result[i].menu_tambahan.kalori_menu1;
+            selisih_kalori = cal - result[i].total;
+            gram = selisih_kalori /kalori_menu_tambahan;
+            
             if (cal == result[i].total) {
               agent.add(
                 result[i].class+": \nPagi (07:00): \n"+result[i].makan_pagi.menu1+" , takaran (gram) : "+result[i].makan_pagi.gram_menu1+"\n"+
@@ -118,10 +122,7 @@ router.post('/', express.json(), (req, res)=>{
             }//tutup if
             else if(cal != result[i].total && cal <1600){
               
-              kalori_menu_tambahan = result[i].menu_tambahan.kalori_menu1;
-              selisih_kalori = cal - result[i].total;
-
-              gram = selisih_kalori /kalori_menu_tambahan;
+              
               agent.add(
                 result[i].class+": \nPagi (07:00): \n"+result[i].makan_pagi.menu1+" , takaran (gram) : "+result[i].makan_pagi.gram_menu1+"\n"+
                 result[i].makan_pagi.menu2+" , takaran (gram) : "+result[i].makan_pagi.gram_menu2+"\n\nSelingan (10:00) \n"+
