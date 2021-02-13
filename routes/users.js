@@ -88,8 +88,6 @@ router.post('/', express.json(), (req, res)=>{
   function rekomendasiMakanan(a, cal){
     var i;
     var gram;
-    var kalori_menu_tambahan;
-    var selisih_kalori;
     for (i = 0; i < result.length; i++) {
         
         if (cal == result[i].total) {
@@ -115,6 +113,9 @@ router.post('/', express.json(), (req, res)=>{
             }//tutup if
 
         else if (cal > 1500 && cal < 1600 && result[i].total >=1500 && result[i].total<1600) {
+
+            gram = (cal - result[i].total) / result[i].menu_tambahan.kalori_menu1;
+            
               agent.add(
                 result[i].class+": \nPagi (07:00): \n"+result[i].makan_pagi.menu1+" , takaran (gram) : "+result[i].makan_pagi.gram_menu1+"\n"+
                 result[i].makan_pagi.menu2+" , takaran (gram) : "+result[i].makan_pagi.gram_menu2+"\n\nSelingan (10:00) \n"+
@@ -130,7 +131,8 @@ router.post('/', express.json(), (req, res)=>{
                 result[i].makan_malam.menu2+" , takaran (gram) : "+result[i].makan_malam.gram_menu2+"\n"+
                 result[i].makan_malam.menu3+" , takaran (gram) : "+result[i].makan_malam.gram_menu3+"\n"+
                 result[i].makan_malam.menu4+" , takaran (gram) : "+result[i].makan_malam.gram_menu4+"\n\nSelingan (21:00) \n"+
-                result[i].selingan3.menu1+" , takaran (gram) : "+result[i].selingan3.gram_menu1+
+                result[i].selingan3.menu1+" , takaran (gram) : "+result[i].selingan3.gram_menu1+"\n"+
+                result[i].menu_tambahan.menu1+" , takaran(gram) : "+gram+
                 "\nTotal kalorisss : "+result[i].total
             
               );
