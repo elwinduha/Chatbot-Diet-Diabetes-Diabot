@@ -92,7 +92,7 @@ router.post('/', express.json(), (req, res)=>{
     var round_gram;
     for (i = 0; i < result.length; i++) {
         
-        if (cal == result[i].total) {
+        if (cal == result[i].total && cal >=1500) {
               agent.add(
                 result[i].class+": \nPagi (07:00): \n-"+result[i].makan_pagi.menu1+" , takaran (gram) : "+result[i].makan_pagi.gram_menu1+"\n-"+
                 result[i].makan_pagi.menu2+" , takaran (gram) : "+result[i].makan_pagi.gram_menu2+"\n\nSelingan (10:00) \n-"+
@@ -114,7 +114,7 @@ router.post('/', express.json(), (req, res)=>{
               );
             }//tutup if
 
-        else if (cal > 1000 && cal < 1100 && result[i].total >=1000 && result[i].total<1100){
+        else if (cal > 1000 && cal < 1100 && result[i].total >=1000 && result[i].total<1100) {
 
             gram = (cal - result[i].total) / result[i].menu_tambahan.kalori_menu1;
             round_gram = gram.toFixed(1);
@@ -140,7 +140,7 @@ router.post('/', express.json(), (req, res)=>{
                 "\n\nTotal kalori : "+cal
             
               );
-              
+
         }//tutup else if
 
         else if (cal > 1500 && cal < 1600 && result[i].total >=1500 && result[i].total<1600) {
