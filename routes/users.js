@@ -78,6 +78,7 @@ MongoClient.connect(url, function (err, db) {
 
         } else {
           a.add("Hai " + nama + ", BMI Anda adalah " + bmi + "\n" + desc);
+          a.add('Untuk saat ini kami belum bisa memberikan rekomendasi makanan untuk kategori Obesitas type II dan Obesitas Type III');
         }
 
       }
@@ -868,6 +869,7 @@ MongoClient.connect(url, function (err, db) {
           pesanTerimakasih(agent);
         } else if (bmi < 30 && jawaban == 'ya') {
           desc = "Anda termasuk kedalam kategori Obesitas II Resiko Sangat Tinggi";
+
           pesanHasilBMI(agent, nama, bmi, 0, desc, false);
           resetContext(agent);
           pesanTerimakasih(agent);
