@@ -749,7 +749,7 @@ MongoClient.connect(url, function (err, db) {
           agent.add('Aktivitas Berat (ex. Petani, Buruh, Atlet, Militer dalam keadaan latihan)');
         } else if (bmi >= 30.00) {
           resetContext(agent);
-          desc = "Anda termasuk kedalam kategori Obesitas III Resiko Parah";
+          desc = "Anda termasuk kedalam kategori Obesitas II";
           pesanHasilBMI(agent, nama, bmi, 0, desc, false);
           pesanTerimakasih(agent);
         } else {
@@ -830,7 +830,7 @@ MongoClient.connect(url, function (err, db) {
               cal = fcal(berat, 30)
             }
           } else if (bmi >= 23 || bmi < 25) {
-            desc = 'Anda termasuk kedalam kategori Obesitas I Resiko Tinggi';
+            desc = 'Anda termasuk kedalam kategori Berat Badan Berlebih Resiko Sedang';
 
             if (aktivitas == "rendah") {
               cal = fcal(berat, 15);
@@ -861,20 +861,20 @@ MongoClient.connect(url, function (err, db) {
           agent.add('Aktivitas Sedang (ex. Pegawai Industri Ringan, Mahasiswa, Militer tidak sedang berperang)');
           agent.add('Aktivitas Berat (ex. Petani, Buruh, Atlet, Militer dalam keadaan latihan)');
         } else if (bmi < 25 && jawaban == 'tidak') {
-          desc = "Anda termasuk kedalam kategori Obesitas I Resiko Meningkat";
+          desc = "Anda termasuk kedalam kategori Berat Badan Berlebih Resiko Meningkat";
           cal = fcal(berat, 20)
           pesanHasilBMI(agent, nama, bmi, cal, desc);
           rekomendasiMakanan(agent, cal, 1);
           resetContext(agent);
           pesanTerimakasih(agent);
         } else if (bmi < 30 && jawaban == 'ya') {
-          desc = "Anda termasuk kedalam kategori Obesitas II Resiko Sangat Tinggi";
+          desc = "Anda termasuk kedalam kategori Obesitas I Resiko Sangat Tinggi";
 
           pesanHasilBMI(agent, nama, bmi, 0, desc, false);
           resetContext(agent);
           pesanTerimakasih(agent);
         } else if (bmi < 30 && jawaban == 'tidak') {
-          desc = "Anda termasuk kedalam kategori Obesitas II Resiko Tinggi";
+          desc = "Anda termasuk kedalam kategori Obesitas I Resiko Sedang";
           pesanHasilBMI(agent, nama, bmi, 0, desc, false);
           resetContext(agent);
           pesanTerimakasih(agent);
