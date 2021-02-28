@@ -78,7 +78,7 @@ MongoClient.connect(url, function (err, db) {
 
         } else {
           a.add("Hai " + nama + ", BMI Anda adalah " + bmi + "\n" + desc);
-          a.add('Untuk saat ini kami belum bisa memberikan rekomendasi makanan untuk kategori Obesitas type II dan Obesitas Type III');
+          a.add('Untuk saat ini kami belum bisa memberikan rekomendasi makanan untuk kategori Obesitas type I dan Obesitas Type II');
         }
 
       }
