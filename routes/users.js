@@ -62,22 +62,22 @@ MongoClient.connect(url, function (err, db) {
         return (w / (h ^ 2)).toFixed(2);
       }
 
-      function fcal(w, act, u, jk = true) {
+      function fcal(w, act, u, jk, bmi) {
 
         // set kalori basal berdasarkan jenis kelamin
-        if (jk) {
-          let cb = 30;
+        if (jk == 'laki-laki') {
+          cb = 30;
         } else {
-          let cb = 25;
+          cb = 25;
         }
 
         // set jumlah kalori berdasarkan aktivitas
         if (act == 'rendah') {
-          let c = 0.2;
+          c = 0.2;
         } else if (act == 'sedang') {
-          let c = 0.3;
+          c = 0.3;
         } else if (act == 'berat') {
-          let c = 0.4;
+          c = 0.4;
         }
 
         // hitung kalori original (berat badan * kalori basal)
@@ -86,12 +86,12 @@ MongoClient.connect(url, function (err, db) {
         // set pengurangan dan pejumlahan kalori berdasarkan berat 
         if (bmi < 18.5) {
           let addC = 0.2;
-          let tC = (origC + (origC * c) + (origC * addC));
+          tC = (origC + (origC * c) + (origC * addC));
         } else if (bmi > 18.5 && bmi < 23) {
-          let tC = (origC + (origC * c));
+          tC = (origC + (origC * c));
         } else {
           let redC = 0.2;
-          let tC = (origC + (origC * c) - (origC * redC));
+          tC = (origC + (origC * c) - (origC * redC));
         }
 
         // set pengurangan dan penjumlahan kalori berdasarkan usia
@@ -803,35 +803,22 @@ MongoClient.connect(url, function (err, db) {
 
       function cAktivitas(agent) {
         ctx = agent.contexts;
-        console.log(ctx);
         bmi = ctx[1].parameters["bmi"];
         let aktivitas = ctx[0].parameters["aktivitas"];
         berat = ctx[0].parameters["berat"];
         jk = ctx[3].parameters["jk"];
         nama = ctx[3].parameters["nama"];
+        umur = ctx[3].parameters["umur"];
 
         if (bmi < 18.5) {
           desc = 'Berat Badan Anda Kurang';
+          cal = fcal(berat, aktivitas, umur, jk, bmi);
         } else if (bmi >= 18.5 || bmi < 23) {
           desc = 'Berat Badan Anda Normal';
-
-          if (aktivitas == "rendah") {
-            cal = fcal(berat, 25);
-          } else if (aktivitas == "sedang") {
-            cal = fcal(berat, 30);
-          } else if (aktivitas == "tinggi") {
-            cal = fcal(berat, 35)
-          }
+          cal = fcal(berat, aktivitas, umur, jk, bmi);
         } else if (bmi >= 23 || bmi < 25) {
           desc = 'Anda termasuk kedalam kategori Obesitas I Resiko Tinggi';
-
-          if (aktivitas == "rendah") {
-            cal = fcal(berat, 20);
-          } else if (aktivitas == "sedang") {
-            cal = fcal(berat, 25);
-          } else if (aktivitas == "tinggi") {
-            cal = fcal(berat, 30)
-          }
+          cal = fcal(berat, aktivitas, umur, jk, bmi);
         }
 
         pesanHasilBMI(agent, nama, bmi, cal, desc);
