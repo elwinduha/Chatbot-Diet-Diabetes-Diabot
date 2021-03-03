@@ -13,8 +13,7 @@ MongoClient.connect(url, function (err, db) {
   var dbo = db.db("chtbot_diabot");
   //var query = { total: {$gte:1500 , $lt:1600} };
 
-  dbo.collection("dataMakanan").find().toArray(function (err, result) {
-    if (err) throw err;
+  
 
 
     //console.log(result[1]);
@@ -211,10 +210,16 @@ MongoClient.connect(url, function (err, db) {
 
           }//tutup else if
 
-          else if (cal > 1100 && cal < 1200 && result[i].total >= 1100 && result[i].total < 1200) {
+          else if (cal > 1100 && cal < 1200) {
+
 
             gram = (cal - result[i].total) / result[i].menu_tambahan.kalori_menu1;
             round_gram = gram.toFixed(1);
+            
+            var query = { total:1100 };
+            dbo.collection("dataMakanan").find(query).toArray(function (err, result) {
+              if (err) throw err;
+
 
 
             a.add(
@@ -235,6 +240,7 @@ MongoClient.connect(url, function (err, db) {
               "\n\nTotal kalori : " + cal
 
             );
+          });
 
           }//tutup else if
 
@@ -910,7 +916,7 @@ MongoClient.connect(url, function (err, db) {
 
     // ini syntax penutup database,, 
     db.close();
-  });
+
 });
 
 //end databasecd C:cd
