@@ -13,7 +13,8 @@ MongoClient.connect(url, function (err, db) {
   var dbo = db.db("chtbot_diabot");
   //var query = { total: {$gte:1500 , $lt:1600} };
 
-  
+  dbo.collection("dataMakanan").find().toArray(function (err, result) {
+    if (err) throw err;
 
 
     //console.log(result[1]);
@@ -138,13 +139,7 @@ MongoClient.connect(url, function (err, db) {
         var round_gram;
         for (i = 0; i < result.length; i++) {
 
-          if (cal >1100 && cal < 1200) {
-            var query = { total:1100 };
-            dbo.collection("dataMakanan").find(query).toArray(function (err, result) {
-              if (err) throw err;
-
-
-
+          if (cal == result[i].total && cal < 2500) {
             a.add(
               result[i].class + ": \nPagi (07:00): \n-" + result[i].makan_pagi.menu1 + " , takaran (gram) : " + result[i].makan_pagi.gram_menu1 + "\n-" +
               result[i].makan_pagi.menu2 + " , takaran (gram) : " + result[i].makan_pagi.gram_menu2 + "\n\nSelingan (10:00) \n-" +
@@ -158,12 +153,10 @@ MongoClient.connect(url, function (err, db) {
               result[i].makan_malam.menu2 + " , takaran (gram) : " + result[i].makan_malam.gram_menu2 + "\n-" +
               result[i].makan_malam.menu3 + " , takaran (gram) : " + result[i].makan_malam.gram_menu3 + "\n-" +
               result[i].makan_malam.menu4 + " , takaran (gram) : " + result[i].makan_malam.gram_menu4 + "\n\nSelingan (21:00) \n-" +
-              result[i].selingan3.menu1 + " , takaran (gram) : " + result[i].selingan3.gram_menu1 + "\n-" +
-              result[i].menu_tambahan.menu1 + " , takaran(gram) : " + round_gram +
-              "\n\nTotal kalori : " + cal
+              result[i].selingan3.menu1 + " , takaran (gram) : " + result[i].selingan3.gram_menu1 +
+              "\n\nTotal kalori : " + result[i].total
 
             );
-          });
           }//tutup if
 
           else if (cal == result[i].total && cal >= 2500) {
@@ -218,16 +211,10 @@ MongoClient.connect(url, function (err, db) {
 
           }//tutup else if
 
-          else if (cal > 1100 && cal < 1200) {
-
+          else if (cal > 1100 && cal < 1200 && result[i].total >= 1100 && result[i].total < 1200) {
 
             gram = (cal - result[i].total) / result[i].menu_tambahan.kalori_menu1;
             round_gram = gram.toFixed(1);
-
-            var query = { total:1100 };
-            dbo.collection("dataMakanan").find(query).toArray(function (err, result) {
-              if (err) throw err;
-
 
 
             a.add(
@@ -248,7 +235,6 @@ MongoClient.connect(url, function (err, db) {
               "\n\nTotal kalori : " + cal
 
             );
-          });
 
           }//tutup else if
 
@@ -924,7 +910,7 @@ MongoClient.connect(url, function (err, db) {
 
     // ini syntax penutup database,, 
     db.close();
-
+  });
 });
 
 //end databasecd C:cd
