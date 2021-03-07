@@ -59,7 +59,7 @@ MongoClient.connect(url, function (err, db) {
         // set kalori basal berdasarkan jenis kelamin
         if (jk == 'laki-laki') {
           cb = 30;
-        } elseif(jk == 'perempuan') {
+        } else if (jk == 'perempuan') {
           cb = 25;
         }
 
