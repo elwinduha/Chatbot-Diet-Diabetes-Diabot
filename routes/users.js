@@ -7,19 +7,11 @@ var MongoClient = require('mongodb').MongoClient;
 
 // replace the uri string with your connection string.
 var url = "mongodb+srv://dia_bot:1234@cluster0.qxkx4.mongodb.net/chtbot_diabot?retryWrites=true&w=majority";
-
-MongoClient.connect(url, function (err, db) {
-  if (err) throw err;
-  var dbo = db.db("chtbot_diabot");
-  //var query = { total: {$gte:1500 , $lt:1600} };
-
-  dbo.collection("dataMakanan").find().toArray(function (err, result) {
+MongoClient.connect(url, function(err, db) {
     if (err) throw err;
-
-
-    //console.log(result[1]);
-
-
+    var dbo = db.db("chtbot_diabot");
+    dbo.collection("dataMakanan").find({}).toArray(function(err, result) {
+      if (err) throw err;
 
 
 
