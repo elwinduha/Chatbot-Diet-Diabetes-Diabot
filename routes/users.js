@@ -7,11 +7,11 @@ var MongoClient = require('mongodb').MongoClient;
 
 // replace the uri string with your connection string.
 var url = "mongodb+srv://dia_bot:1234@cluster0.qxkx4.mongodb.net/chtbot_diabot?retryWrites=true&w=majority";
-MongoClient.connect(url, function(err, db) {
+MongoClient.connect(url, function (err, db) {
+  if (err) throw err;
+  var dbo = db.db("chtbot_diabot");
+  dbo.collection("dataMakanan").find({}).toArray(function (err, result) {
     if (err) throw err;
-    var dbo = db.db("chtbot_diabot");
-    dbo.collection("dataMakanan").find({}).toArray(function(err, result) {
-      if (err) throw err;
 
 
 
@@ -59,7 +59,7 @@ MongoClient.connect(url, function(err, db) {
         // set kalori basal berdasarkan jenis kelamin
         if (jk == 'laki-laki') {
           cb = 30;
-        } else {
+        } elseif(jk == 'perempuan') {
           cb = 25;
         }
 
