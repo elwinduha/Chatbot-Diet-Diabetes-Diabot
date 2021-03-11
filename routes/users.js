@@ -815,7 +815,11 @@ MongoClient.connect(url, function (err, db) {
           pesanHasilBMI(agent, nama, bmi, 0, desc, false);
           pesanTerimakasih(agent);
         } else {
-          let s = (jk == "laki-laki") ? '90' : '80';
+          if (jk == 'laki-laki') {
+            s = 30;
+          } else if (jk == 'perempuan') {
+            s = 25;
+          }
           agent.add('Apakah lingkar pinggang Anda lebih besar atau sama dengan ' + s + ' Cm?');
         }
       }
@@ -863,7 +867,7 @@ MongoClient.connect(url, function (err, db) {
           desc = "Anda termasuk kedalam kategori Berat Badan Berlebih Resiko Meningkat";
           cal = fcal(berat, 20)
           pesanHasilBMI(agent, nama, bmi, cal, desc);
-          rekomendasiMakanan(agent, cal, 1);
+          rekomendasiMakanan(agent, cal);
           resetContext(agent);
           pesanTerimakasih(agent);
         } else if (bmi < 30 && jawaban == 'ya') {
