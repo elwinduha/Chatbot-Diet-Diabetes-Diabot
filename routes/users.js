@@ -122,8 +122,9 @@ MongoClient.connect(url, function (err, db) {
         agent.add('Terima Kasih telah Konsultasi, balas "mulai" untuk konsultasi kembali atau "selesai" untuk mengakhiri :)');
       }
 
-
-
+      function tanyaMenuLain(agent) {
+        agent.add('Apakah Anda ingin Rekomendasi Menu lain? Jika iya, balas "menu lain" jika tidak balas "selesai"')
+      }
 
       function rekomendasiMakanan(a, cal) {
         var i;
@@ -844,10 +845,18 @@ MongoClient.connect(url, function (err, db) {
           cal = fcal(berat, aktivitas, umur, jk, bmi);
         }
 
+        agent.context.set({
+          'name': 'sessData',
+          'lifespan': 50,
+          'parameters': {
+            'kalori': cal
+          }
+        });
         pesanHasilBMI(agent, nama, bmi, cal, desc);
         rekomendasiMakanan(agent, cal);
-        resetContext(agent);
-        pesanTerimakasih(agent);
+        tanyaMenuLain(agent);
+        // resetContext(agent);
+        // pesanTerimakasih(agent);
 
       }
 
@@ -868,8 +877,16 @@ MongoClient.connect(url, function (err, db) {
           cal = fcal(berat, 20)
           pesanHasilBMI(agent, nama, bmi, cal, desc);
           rekomendasiMakanan(agent, cal);
-          resetContext(agent);
-          pesanTerimakasih(agent);
+          agent.context.set({
+            'name': 'sessData',
+            'lifespan': 50,
+            'parameters': {
+              'kalori': cal
+            }
+          });
+          tanyaMenuLain(agent);
+          // resetContext(agent);
+          // pesanTerimakasih(agent);
         } else if (bmi < 30 && jawaban == 'ya') {
           desc = "Anda termasuk kedalam kategori Obesitas I Resiko Sangat Tinggi";
 
@@ -882,6 +899,16 @@ MongoClient.connect(url, function (err, db) {
           resetContext(agent);
           pesanTerimakasih(agent);
         }
+      }
+
+      function menuLain(agent) {
+        ctx = agent.contexts;
+        cal = ctx[1].parameters['kalori'];
+
+        // letak code untuk rekomendasi menu lain
+        agent.add("Sabar ya menu nya lagi diracik sama Chef Bayu");
+        // resetContext(agent);
+        pesanTerimakasih(agent);
       }
 
       function finishProgram(agent) {
@@ -897,7 +924,9 @@ MongoClient.connect(url, function (err, db) {
       intentMap.set("dataBMI", cekBMI);
       intentMap.set("cekAktivitas", cAktivitas);
       intentMap.set("cekLingkarPinggang", cekLingkarPinggang);
+      intentMap.set("rekomendasiMenuLain", menuLain);
       intentMap.set("DefaultFinishProgram", finishProgram);
+
 
       agent.handleRequest(intentMap);
 
