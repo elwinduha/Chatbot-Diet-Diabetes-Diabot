@@ -816,9 +816,9 @@ MongoClient.connect(url, function (err, db) {
           pesanTerimakasih(agent);
         } else {
           if (jk == 'laki-laki') {
-            s = 30;
+            s = 90;
           } else if (jk == 'perempuan') {
-            s = 25;
+            s = 80;
           }
           agent.add('Apakah lingkar pinggang Anda lebih besar atau sama dengan ' + s + ' Cm?');
         }
