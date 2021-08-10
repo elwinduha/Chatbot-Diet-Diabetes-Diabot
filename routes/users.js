@@ -10,7 +10,7 @@ var url = "mongodb+srv://dia_bot:12345@cluster0.qxkx4.mongodb.net/myFirstDatabas
 MongoClient.connect(url, function (err, db) {
   if (err) throw err;
   var dbo = db.db("chtbot_diabot");
-  dbo.collection("dataMakanan").find({}).toArray(function (err, result) {
+  dbo.collection("dataMakanan2").find({}).toArray(function (err, result) {
     if (err) throw err;
 
 
